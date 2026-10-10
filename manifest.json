@@ -2,16 +2,19 @@
   "id": "./",
   "name": "Welcome Cosmetic Store",
   "short_name": "Welcome Cosmetic",
-  "description": "Barcode inventory, sale bills and reports for Welcome Cosmetic Store",
+  "description": "Barcode inventory, billing and reports for Welcome Cosmetic Store",
+  "lang": "en",
+  "dir": "ltr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#fdf8fe",
-  "theme_color": "#e8bcf0",
+  "background_color": "#fffaf7",
+  "theme_color": "#fbe6e1",
+  "categories": ["business", "shopping"],
+  "prefer_related_applications": false,
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
   ]
 }

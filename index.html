@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Welcome Cosmetic Store</title>
-<meta name="theme-color" content="#e8bcf0">
+<meta name="theme-color" content="#fbe6e1">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Welcome Cosmetic">
@@ -14,103 +14,132 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script src="html5-qrcode.min.js"></script>
 <style>
-:root{--p:#e8bcf0;--pd:#6b2d7b;--pt:#3d1347;--pl:#fbf1fd;--pm:#d9a9e4;--line:#ecd4f1;--paper:#fdf8fe;--ink:#231326;--mut:#7a6580;--red:#b3261e;--green:#1f7a4d;--amber:#a86a00;--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;padding-bottom:calc(132px + var(--sb))}
-header{background:var(--p);color:var(--pt);padding:calc(12px + var(--st)) 14px 12px;font-weight:800;font-size:18px;position:sticky;top:0;z-index:5;border-bottom:1px solid var(--pm);display:flex;align-items:center;gap:8px}
-header .ttl{flex:1}
-header button{background:rgba(255,255,255,.55);color:var(--pt);border:1px solid var(--pm);border-radius:10px;padding:6px 10px;font-size:13px;font-weight:700}
+:root{
+  --bg:#fffaf7;--card:#fff;--blush:#fbe6e1;--blush2:#f5d2cc;
+  --gold:#b8862b;--gold2:#e2b863;--goldd:#8f6212;
+  --rose:#b83a6e;--rose2:#962d58;
+  --ink:#2b1b25;--mut:#8a7480;--line:#f0dcd6;
+  --ok:#2f7d5b;--bad:#c0392b;--warn:#b7791f;
+  --sh:0 6px 18px rgba(150,45,88,.10);
+  --sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;padding-bottom:calc(136px + var(--sb))}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:calc(10px + var(--st)) 14px 10px;background:linear-gradient(135deg,#fff4ef,#fbe6e1 55%,#f5d2cc);border-bottom:2px solid var(--gold2)}
+header img{width:42px;height:42px;border-radius:12px;box-shadow:0 3px 10px rgba(150,45,88,.25)}
+.brand{flex:1;min-width:0}
+.brand b{display:block;font-family:var(--serif);font-size:18px;color:var(--goldd);letter-spacing:.2px;line-height:1.15}
+.brand small{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose2);margin-top:2px}
+.hbtn{background:rgba(255,255,255,.7);border:1px solid var(--blush2);color:var(--rose2);border-radius:12px;height:38px;min-width:38px;padding:0 10px;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
 main{padding:12px;max-width:640px;margin:0 auto}
 button{font:inherit;cursor:pointer}
-.btn{background:var(--pd);color:#fff;border:0;border-radius:10px;padding:11px 14px;font-weight:600}
-.btn.alt{background:#fff;color:var(--pd);border:1px solid var(--pd)}
-.btn.soft{background:var(--p);color:var(--pt)}
+svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.btn{background:linear-gradient(135deg,#c8457b,#a4305f);color:#fff;border:0;border-radius:12px;padding:12px 14px;font-weight:700;box-shadow:0 4px 12px rgba(184,58,110,.28)}
+.btn.alt{background:#fff;color:var(--rose2);border:1px solid var(--rose);box-shadow:none}
+.btn.soft{background:var(--blush);color:var(--rose2);box-shadow:none}
+.btn.gold{background:linear-gradient(135deg,#d7a846,#a97a1f);color:#fff}
 .btn:disabled{opacity:.5}
 .row{display:flex;gap:8px;align-items:center}
 .row>*{flex:1}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
-.chip{border:1px solid var(--pm);background:var(--pl);color:var(--pt);border-radius:20px;padding:6px 12px;font-size:13px;font-weight:600}
-input[type=text],input[type=password],input[type=url],input[type=number],input[type=search],input[type=date]{width:100%;padding:11px;border:1px solid var(--pm);border-radius:10px;background:#fff;font:inherit;color:var(--ink)}
-input:focus{outline:2px solid var(--p);border-color:var(--pd)}
-#reader,#reader2{width:100%;margin:8px 0;border-radius:10px;overflow:hidden}
-.sugg{background:#fff;border:1px solid var(--pm);border-radius:10px;margin-top:4px}
-.sugg div{padding:10px;border-bottom:1px solid var(--line)}
+.chip{border:1px solid var(--blush2);background:var(--blush);color:var(--rose2);border-radius:20px;padding:6px 12px;font-size:13px;font-weight:700}
+input[type=text],input[type=password],input[type=url],input[type=number],input[type=search],input[type=date],select{width:100%;padding:12px;border:1px solid var(--blush2);border-radius:12px;background:#fff;font:inherit;color:var(--ink)}
+input:focus,select:focus{outline:2px solid var(--gold2);border-color:var(--gold)}
+label.l{display:block;font-size:12px;color:var(--mut);margin:8px 0 4px;font-weight:600}
+#reader,#reader2{width:100%;margin:8px 0;border-radius:12px;overflow:hidden}
+.sugg{background:#fff;border:1px solid var(--blush2);border-radius:12px;margin-top:4px;box-shadow:var(--sh)}
+.sugg div{padding:10px 12px;border-bottom:1px solid var(--line)}
 .sugg div:last-child{border-bottom:0}
 .sugg small{display:block;color:var(--mut)}
-.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
-.card h4{margin:0 0 6px;color:var(--pd);font-size:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;box-shadow:var(--sh)}
+.card h4{margin:0 0 4px;font-family:var(--serif);font-size:17px;color:var(--goldd)}
 .card p{margin:0 0 8px;color:var(--mut);font-size:13px}
-.item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:8px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:10px;box-shadow:var(--sh)}
 .itop{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .iname{font-weight:700}
 .iname small{display:block;color:var(--mut);font-weight:400}
 .ctrl{display:flex;align-items:flex-end;gap:8px;margin-top:8px;flex-wrap:wrap}
 .pin{display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--mut)}
-.price{width:92px!important;padding:8px!important}
+.price{width:96px!important;padding:8px!important}
 .qty{display:flex;align-items:center;gap:4px}
-.qty button{width:34px;height:34px;border:1px solid var(--pd);background:#fff;border-radius:10px;font-size:18px;color:var(--pd)}
-.qty input{width:52px!important;text-align:center;padding:8px!important}
-.line{margin-left:auto;font-weight:800;color:var(--pd)}
-.x{border:0;background:none;color:var(--red);font-size:24px;line-height:1;padding:0 4px}
-.empty{color:var(--mut);text-align:center;padding:22px 8px}
-.savebar{position:fixed;left:0;right:0;bottom:calc(56px + var(--sb));background:#fff;border-top:1px solid var(--pm);padding:10px 12px;display:flex;gap:10px;align-items:center;z-index:6}
-.savebar .tot{flex:1;font-weight:800;font-size:16px;color:var(--pd)}
+.qty button{width:36px;height:36px;border:1px solid var(--rose);background:#fff;border-radius:12px;font-size:18px;color:var(--rose2)}
+.qty input{width:54px!important;text-align:center;padding:8px!important}
+.line{margin-left:auto;font-weight:800;color:var(--goldd);font-family:var(--serif);font-size:16px}
+.x{border:0;background:none;color:var(--bad);font-size:26px;line-height:1;padding:0 4px}
+.empty{color:var(--mut);text-align:center;padding:26px 8px}
+.savebar{position:fixed;left:0;right:0;bottom:calc(60px + var(--sb));background:rgba(255,255,255,.96);border-top:1px solid var(--blush2);padding:10px 12px;display:flex;gap:10px;align-items:center;z-index:6;backdrop-filter:blur(6px)}
+.savebar .tot{flex:1;font-family:var(--serif);font-weight:700;font-size:17px;color:var(--goldd)}
 .savebar .btn{flex:0 0 44%}
-nav{position:fixed;left:0;right:0;bottom:0;height:calc(56px + var(--sb));padding-bottom:var(--sb);display:flex;background:var(--p);border-top:1px solid var(--pm);z-index:7}
-nav button{flex:1;background:none;border:0;color:#8a5c99;font-weight:700;font-size:14px}
-nav button.on{color:var(--pt);box-shadow:inset 0 3px 0 var(--pd);background:var(--pl)}
-.plist .p{display:flex;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:6px}
+nav{position:fixed;left:0;right:0;bottom:0;height:calc(60px + var(--sb));padding-bottom:var(--sb);display:flex;background:#fff;border-top:1px solid var(--blush2);z-index:7}
+nav button{flex:1;background:none;border:0;color:#a89098;font-weight:700;font-size:11.5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;position:relative}
+nav button.on{color:var(--rose)}
+nav button.on::before{content:"";position:absolute;top:0;left:28%;right:28%;height:3px;border-radius:0 0 4px 4px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.plist .p{display:flex;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 12px;margin-top:8px;box-shadow:var(--sh)}
 .plist small{color:var(--mut);display:block}
-.stk{font-weight:800;white-space:nowrap;align-self:center;font-size:17px}
-.low{color:var(--amber)}.zero{color:var(--red)}.okk{color:var(--green)}
+.tag{display:inline-block;background:var(--blush);color:var(--rose2);border-radius:20px;padding:1px 9px;font-size:11.5px;font-weight:700;margin:3px 0}
+.stk{font-family:var(--serif);font-weight:700;white-space:nowrap;align-self:center;font-size:20px}
+.low{color:var(--warn)}.zero{color:var(--bad)}.okk{color:var(--ok)}
 .info{color:var(--mut);font-size:13px;margin:8px 2px 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.stat{background:var(--pl);border:1px solid var(--line);border-radius:12px;padding:10px}
+.stat{background:#fff9f6;border:1px solid var(--line);border-radius:14px;padding:10px}
 .stat small{display:block;color:var(--mut)}
-.stat b{font-size:18px;color:var(--pt)}
-.stat.big{background:var(--p);border-color:var(--pm)}
-.neg{color:var(--red)!important}
-#toast{position:fixed;top:calc(64px + var(--st));left:12px;right:12px;padding:12px;border-radius:10px;color:#fff;z-index:40;display:none;text-align:center}
-#toast.err{background:var(--red)}#toast.ok{background:var(--green)}
-.ov{position:fixed;inset:0;background:rgba(35,19,38,.5);display:none;align-items:center;justify-content:center;z-index:30;padding:16px}
-.box{background:#fff;border-radius:14px;padding:18px;width:100%;max-width:420px;max-height:92vh;overflow:auto}
-.box h3{margin:0 0 10px;color:var(--pd)}
-.box label{display:block;margin:10px 0 4px;font-weight:600}
+.stat b{font-family:var(--serif);font-size:18px;color:var(--ink)}
+.stat.big{background:linear-gradient(135deg,#fff6e3,#fbe6e1);border-color:var(--gold2)}
+.neg{color:var(--bad)!important}
+.srow{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.srow:last-child{border-bottom:0}
+.srow small{display:block;color:var(--mut)}
+.srow .num{text-align:right}
+.srow.total{font-weight:700;background:var(--blush);border-radius:10px;padding:10px;margin-top:6px;border-bottom:0}
+#toast{position:fixed;top:calc(68px + var(--st));left:12px;right:12px;padding:12px;border-radius:12px;color:#fff;z-index:40;display:none;text-align:center;box-shadow:var(--sh)}
+#toast.err{background:var(--bad)}#toast.ok{background:var(--ok)}
+.ov{position:fixed;inset:0;background:rgba(43,27,37,.55);display:none;align-items:center;justify-content:center;z-index:30;padding:16px}
+.box{background:#fff;border-radius:20px;padding:20px;width:100%;max-width:430px;max-height:92vh;overflow:auto;border-top:4px solid var(--gold2)}
+.box h3{margin:0 0 6px;font-family:var(--serif);color:var(--goldd);font-size:20px}
 .box a.btn{display:block;text-align:center;text-decoration:none;margin-top:8px}
-.hint{font-size:13px;color:var(--mut);margin-top:6px;min-height:18px}
+.hint{font-size:13px;color:var(--mut);margin-top:6px;min-height:18px;line-height:1.45}
+.diag{background:var(--blush);border-radius:12px;padding:10px 12px;font-size:13px;margin-top:10px;line-height:1.6}
 .hide{display:none!important}
 </style>
 </head>
 <body>
 <header>
-  <div class="ttl">Welcome Cosmetic Store</div>
-  <button id="instBtn" class="hide" onclick="installApp()">Install</button>
-  <button onclick="openSettings()" aria-label="Settings">&#9881; Settings</button>
+  <img src="icon-192.png" alt="Welcome Cosmetic Store">
+  <div class="brand"><b>Welcome Cosmetic Store</b><small>Inventory &amp; Billing</small></div>
+  <button id="instBtn" class="hbtn hide" onclick="installApp()">Install</button>
+  <button class="hbtn" onclick="openSettings()" aria-label="Settings">
+    <svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+  </button>
 </header>
 <div id="toast"></div>
+<datalist id="coList"></datalist>
 
 <main>
   <!-- SALE / STOCK IN -->
   <section id="vScan">
     <div class="row">
-      <button class="btn" id="scanBtn" onclick="toggleScan()">Camera se scan karein</button>
-      <button class="btn alt hide" id="newBtn" onclick="openNew('', false)">+ Naya product</button>
+      <button class="btn" id="scanBtn" onclick="toggleScan()">Scan with camera</button>
+      <button class="btn alt hide" id="newBtn" onclick="openNew('', false)">+ New product</button>
     </div>
     <div id="reader"></div>
-    <input type="search" id="manual" placeholder="Barcode likhein ya product ka naam" autocomplete="off"
+    <input type="search" id="manual" placeholder="Type barcode or product name" autocomplete="off"
            oninput="suggest()" onkeydown="if(event.key==='Enter'){manualAdd()}" style="margin-top:6px">
     <div id="sugg" class="sugg hide"></div>
-    <div id="custWrap" style="margin-top:8px"><input type="text" id="cust" placeholder="Customer ka naam (optional)"></div>
+    <div id="custWrap"><label class="l">Customer (optional)</label><input type="text" id="cust" placeholder="Customer name"></div>
+    <div id="vendWrap" class="hide"><label class="l">Received from (Company / Vendor)</label>
+      <input type="text" id="vendor" list="coList" placeholder="Leave empty to use each product's own company"></div>
     <div id="cart"></div>
   </section>
 
   <!-- PRODUCTS -->
   <section id="vProd" class="hide">
     <div class="row">
-      <button class="btn" onclick="openNew('', false)">+ Naya product</button>
+      <button class="btn" onclick="openNew('', false)">+ New product</button>
       <button class="btn alt" onclick="loadProducts(true)">Refresh</button>
     </div>
-    <input type="search" id="psearch" placeholder="Product dhoondein (naam / barcode)" oninput="renderProducts()" style="margin-top:8px">
+    <input type="search" id="psearch" placeholder="Search by name or barcode" oninput="renderProducts()" style="margin-top:8px">
+    <select id="pFilter" onchange="renderProducts()" style="margin-top:8px"></select>
     <div class="info" id="pinfo"></div>
     <div id="plist" class="plist"></div>
   </section>
@@ -119,26 +148,50 @@ nav button.on{color:var(--pt);box-shadow:inset 0 3px 0 var(--pd);background:var(
   <section id="vRep" class="hide">
     <div class="card">
       <h4>Stock Report</h4>
-      <p>Har product ka available stock (A4 PDF).</p>
-      <button class="btn" id="repBtn" onclick="stockReport()" style="width:100%">Stock Report PDF</button>
+      <p>Remaining stock, grouped by company / vendor.</p>
+      <select id="stCo" onchange="renderStockSummary()"></select>
+      <div id="stSummary" style="margin-top:6px"></div>
+      <button class="btn" id="repBtn" onclick="stockReport()" style="width:100%;margin-top:10px">Stock Report PDF</button>
     </div>
 
     <div class="card">
-      <h4>Sale Report (profit ke sath)</h4>
-      <p>Date chunein, phir summary dekhein ya PDF banayein.</p>
+      <h4>Purchase Report (Stock Received)</h4>
+      <p>How much stock came from each company / vendor in a period.</p>
       <div class="chips">
-        <button class="chip" onclick="quick('today')">Aaj</button>
-        <button class="chip" onclick="quick('yest')">Kal</button>
-        <button class="chip" onclick="quick('week')">Pichle 7 din</button>
-        <button class="chip" onclick="quick('month')">Is mahine</button>
+        <button class="chip" onclick="quick('pur','today')">Today</button>
+        <button class="chip" onclick="quick('pur','yest')">Yesterday</button>
+        <button class="chip" onclick="quick('pur','week')">Last 7 days</button>
+        <button class="chip" onclick="quick('pur','month')">This month</button>
       </div>
       <div class="row">
-        <div><label style="font-size:12px;color:var(--mut)">From</label><input type="date" id="rFrom"></div>
-        <div><label style="font-size:12px;color:var(--mut)">To</label><input type="date" id="rTo"></div>
+        <div><label class="l">From</label><input type="date" id="purFrom"></div>
+        <div><label class="l">To</label><input type="date" id="purTo"></div>
+      </div>
+      <label class="l">Company / Vendor</label>
+      <select id="puVendor"></select>
+      <div class="row" style="margin-top:10px">
+        <button class="btn alt" id="puSumBtn" onclick="purchaseReport(false)">View summary</button>
+        <button class="btn" id="puPdfBtn" onclick="purchaseReport(true)">Purchase PDF</button>
+      </div>
+      <div id="puBox" class="hide"></div>
+    </div>
+
+    <div class="card">
+      <h4>Sale Report (with profit)</h4>
+      <p>Pick a period to see sales, cost and profit.</p>
+      <div class="chips">
+        <button class="chip" onclick="quick('sale','today')">Today</button>
+        <button class="chip" onclick="quick('sale','yest')">Yesterday</button>
+        <button class="chip" onclick="quick('sale','week')">Last 7 days</button>
+        <button class="chip" onclick="quick('sale','month')">This month</button>
+      </div>
+      <div class="row">
+        <div><label class="l">From</label><input type="date" id="saleFrom"></div>
+        <div><label class="l">To</label><input type="date" id="saleTo"></div>
       </div>
       <div class="row" style="margin-top:10px">
-        <button class="btn alt" id="sumBtn" onclick="salesReport(false)">Summary dekhein</button>
-        <button class="btn" id="spdfBtn" onclick="salesReport(true)">Sale Report PDF</button>
+        <button class="btn alt" id="sumBtn" onclick="salesReport(false)">View summary</button>
+        <button class="btn" id="spdfBtn" onclick="salesReport(true)">Sale PDF</button>
       </div>
       <div id="sumBox" class="grid hide"></div>
     </div>
@@ -151,45 +204,52 @@ nav button.on{color:var(--pt);box-shadow:inset 0 3px 0 var(--pd);background:var(
 </div>
 
 <nav>
-  <button id="tSALE" class="on" onclick="setTab('SALE')">Sale</button>
-  <button id="tIN" onclick="setTab('IN')">Stock In</button>
-  <button id="tPROD" onclick="setTab('PROD')">Products</button>
-  <button id="tREP" onclick="setTab('REP')">Reports</button>
+  <button id="tSALE" class="on" onclick="setTab('SALE')">
+    <svg class="i" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>Sale</button>
+  <button id="tIN" onclick="setTab('IN')">
+    <svg class="i" viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>Stock In</button>
+  <button id="tPROD" onclick="setTab('PROD')">
+    <svg class="i" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Products</button>
+  <button id="tREP" onclick="setTab('REP')">
+    <svg class="i" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M2 20h20"/></svg>Reports</button>
 </nav>
 
 <!-- Settings -->
 <div class="ov" id="ovSet">
   <div class="box">
     <h3>Settings</h3>
-    <label>Server link (Apps Script Web App URL)</label>
+    <label class="l">Server link (Apps Script Web app URL)</label>
     <input type="url" id="sUrl" placeholder="https://script.google.com/macros/s/.../exec">
-    <label>Password</label>
-    <input type="password" id="sKey" placeholder="Code.gs wala API_KEY">
-    <div class="hint">iPhone: Safari mein Share &rarr; "Add to Home Screen". Android: Chrome menu &rarr; "Install app".</div>
-    <div class="row" style="margin-top:14px">
-      <button class="btn alt" id="sCancel" onclick="closeSettings()">Band</button>
-      <button class="btn" onclick="saveSettings()">Save</button>
+    <label class="l">Password</label>
+    <input type="password" id="sKey" placeholder="API_KEY from Code.gs">
+    <div class="diag" id="diag"></div>
+    <div class="hint">Android (Chrome): tap <b>Install</b> at the top, or menu &rarr; <b>Install app</b>. If Chrome only offers "Add to Home screen", tap <b>Reset app</b>, open the page again, wait 10 seconds and check the menu again. iPhone: Safari &rarr; Share &rarr; <b>Add to Home Screen</b>.</div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn alt" onclick="resetApp()">Reset app</button>
+      <button class="btn alt" id="sCancel" onclick="closeSettings()">Close</button>
     </div>
+    <button class="btn" style="width:100%;margin-top:8px" onclick="saveSettings()">Save</button>
   </div>
 </div>
 
-<!-- Naya product dialog -->
+<!-- New product -->
 <div class="ov" id="ovNew">
   <div class="box">
-    <h3>Naya product</h3>
-    <label>Barcode</label>
+    <h3>New product</h3>
+    <label class="l">Barcode</label>
     <div class="row">
-      <input type="text" id="nCode" placeholder="Scan karein ya khud likhein" style="flex:2">
+      <input type="text" id="nCode" placeholder="Scan or type" style="flex:2">
       <button class="btn soft" id="dScanBtn" onclick="toggleDlgScan()" style="flex:1">Scan</button>
     </div>
     <div id="reader2" class="hide"></div>
-    <label>Product ka naam</label><input type="text" id="nName">
+    <label class="l">Product name</label><input type="text" id="nName">
+    <label class="l">Company / Vendor</label><input type="text" id="nCompany" list="coList" placeholder="Choose or type a new one">
     <div class="row">
-      <div><label>Purchase price</label><input type="number" inputmode="decimal" id="nBuy" oninput="profitHint()"></div>
-      <div><label>Sale price</label><input type="number" inputmode="decimal" id="nSale" oninput="profitHint()"></div>
+      <div><label class="l">Purchase price</label><input type="number" inputmode="decimal" id="nBuy" oninput="profitHint()"></div>
+      <div><label class="l">Sale price</label><input type="number" inputmode="decimal" id="nSale" oninput="profitHint()"></div>
     </div>
     <div class="hint" id="nHint"></div>
-    <div id="nStockWrap"><label>Opening stock (optional)</label><input type="number" inputmode="numeric" id="nStock" placeholder="0"></div>
+    <div id="nStockWrap"><label class="l">Opening stock (optional)</label><input type="number" inputmode="numeric" id="nStock" placeholder="0"></div>
     <div class="row" style="margin-top:14px">
       <button class="btn alt" onclick="closeNew()">Cancel</button>
       <button class="btn" id="nSave" onclick="saveNew()">Save product</button>
@@ -197,21 +257,22 @@ nav button.on{color:var(--pt);box-shadow:inset 0 3px 0 var(--pd);background:var(
   </div>
 </div>
 
-<!-- Save / report done dialog -->
+<!-- Done -->
 <div class="ov" id="ovDone">
   <div class="box">
     <h3 id="dTitle"></h3>
-    <p id="dMsg" style="margin:0"></p>
+    <p id="dMsg" style="margin:0;color:var(--mut)"></p>
     <div id="dLinks"></div>
-    <button class="btn alt" style="width:100%;margin-top:8px" onclick="$('ovDone').style.display='none'">Theek hai</button>
+    <button class="btn alt" style="width:100%;margin-top:8px" onclick="$('ovDone').style.display='none'">Done</button>
   </div>
 </div>
 
 <script>
-var products = [], pmap = {}, carts = {SALE: [], IN: []}, mode = 'SALE';
+var products = [], companies = [], pmap = {}, carts = {SALE: [], IN: []}, mode = 'SALE';
 var mainScn = null, mainOn = false, mainBusy = false;
 var dlgScn = null, dlgOn = false, dlgBusy = false;
 var last = {code: '', t: 0}, saving = false, pendingAdd = false, actx = null, deferredPrompt = null;
+var NONE = '(No company)';
 
 function $(id){ return document.getElementById(id); }
 function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
@@ -219,7 +280,7 @@ function money(n){ return Number(n).toLocaleString('en-US', {maximumFractionDigi
 
 function toast(msg, type){
   var t = $('toast'); t.textContent = msg; t.className = type || 'ok'; t.style.display = 'block';
-  clearTimeout(toast.h); toast.h = setTimeout(function(){ t.style.display = 'none'; }, 3000);
+  clearTimeout(toast.h); toast.h = setTimeout(function(){ t.style.display = 'none'; }, 3200);
 }
 function fail(e){ beep('err'); toast((e && e.message) ? e.message : String(e), 'err'); }
 
@@ -234,14 +295,34 @@ function openSettings(){
   $('sUrl').value = store('url'); $('sKey').value = store('key');
   $('sCancel').classList.toggle('hide', !hasConfig());
   $('ovSet').style.display = 'flex';
+  refreshDiag();
 }
 function closeSettings(){ $('ovSet').style.display = 'none'; }
 function saveSettings(){
   var u = $('sUrl').value.trim(), k = $('sKey').value.trim();
-  if (!/^https:\/\/script\.google\.com\/.+\/exec/.test(u)){ fail('Link "https://script.google.com/.../exec" jaisa hona chahiye'); return; }
-  if (!k){ fail('Password likhein'); return; }
+  if (!/^https:\/\/script\.google\.com\/.+\/exec/.test(u)){ fail('The link should look like https://script.google.com/.../exec'); return; }
+  if (!k){ fail('Enter the password'); return; }
   store('url', u); store('key', k);
   closeSettings(); loadProducts(true);
+}
+function refreshDiag(){
+  var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
+  var lines = [
+    'Secure (HTTPS): ' + (location.protocol === 'https:' ? 'Yes' : 'No'),
+    'Running as installed app: ' + (standalone ? 'Yes' : 'No (browser)'),
+    'Install ready: ' + (standalone ? 'Already installed' : (deferredPrompt ? 'Yes - tap Install' : 'Not offered yet'))
+  ];
+  function show(sw){ $('diag').innerHTML = esc(lines.join('\n')).replace(/\n/g, '<br>') + '<br>Offline support: ' + sw; }
+  if (!('serviceWorker' in navigator)){ show('Not supported'); return; }
+  navigator.serviceWorker.getRegistration().then(function(reg){
+    show(reg && reg.active ? 'Active' : (reg ? 'Starting...' : 'Not active'));
+  }).catch(function(){ show('Unknown'); });
+}
+function resetApp(){
+  var jobs = [];
+  if ('serviceWorker' in navigator) jobs.push(navigator.serviceWorker.getRegistrations().then(function(rs){ return Promise.all(rs.map(function(r){ return r.unregister(); })); }));
+  if (window.caches) jobs.push(caches.keys().then(function(ks){ return Promise.all(ks.map(function(k){ return caches.delete(k); })); }));
+  Promise.all(jobs).catch(function(){}).then(function(){ location.reload(); });
 }
 
 /* ---------- API (Google Apps Script JSON) ---------- */
@@ -252,12 +333,12 @@ function api(action, payload){
     body: JSON.stringify({key: store('key'), action: action, payload: payload || {}})
   }).then(function(r){
     return r.json().catch(function(){
-      throw new Error('Server ka jawab ghalat hai. Deployment "Who has access: Anyone" honi chahiye.');
+      throw new Error('Unexpected reply from the server. The web app must be deployed with access set to "Anyone".');
     });
   }, function(){
-    var e = new Error('Server se rabta nahi hua. Internet ya server link check karein.'); e.net = true; throw e;
+    var e = new Error('Could not reach the server. Check your internet connection and the server link.'); e.net = true; throw e;
   }).then(function(j){
-    if (!j.ok){ var er = new Error(j.error || 'Error'); if (/Password/.test(er.message)) er.auth = true; throw er; }
+    if (!j.ok){ var er = new Error(j.error || 'Error'); if (/password/i.test(er.message)) er.auth = true; throw er; }
     return j.data;
   });
 }
@@ -288,7 +369,7 @@ function beep(kind){
 
 /* ---------- install ---------- */
 window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt = e; $('instBtn').classList.remove('hide'); });
-window.addEventListener('appinstalled', function(){ deferredPrompt = null; $('instBtn').classList.add('hide'); toast('App install ho gayi'); });
+window.addEventListener('appinstalled', function(){ deferredPrompt = null; $('instBtn').classList.add('hide'); toast('App installed'); });
 function installApp(){
   if (!deferredPrompt) return;
   deferredPrompt.prompt();
@@ -301,19 +382,39 @@ if ('serviceWorker' in navigator){
 /* ---------- data ---------- */
 function loadProducts(showOk){
   if (!hasConfig()){ openSettings(); return; }
-  api('getProducts').then(function(list){
-    store('cache', JSON.stringify(list)); setProducts(list);
-    if (showOk === true) toast('Products update ho gaye');
+  api('getProducts').then(function(d){
+    store('cache', JSON.stringify(d)); setData(d);
+    if (showOk === true) toast('Products updated');
   }).catch(function(e){
     if (e.auth){ fail(e); openSettings(); return; }
     var c = null; try{ c = JSON.parse(store('cache') || 'null'); }catch(x){}
-    if (c){ setProducts(c); toast('Offline: purani product list dikh rahi hai', 'err'); } else fail(e);
+    if (c){ setData(c); toast('Offline: showing the last saved product list', 'err'); } else fail(e);
   });
 }
-function setProducts(list){
-  products = list || []; pmap = {};
+function setData(d){
+  if (Array.isArray(d)) d = {products: d, companies: []};
+  products = d.products || []; companies = d.companies || [];
+  pmap = {};
   products.forEach(function(p){ pmap[p.barcode] = p; });
-  renderProducts(); renderCart();
+  fillCompanyUI(); renderProducts(); renderCart(); renderStockSummary();
+}
+function allCompanies(){
+  var set = {};
+  companies.forEach(function(c){ if (c) set[c] = 1; });
+  products.forEach(function(p){ if (p.company) set[p.company] = 1; });
+  return Object.keys(set).sort(function(a, b){ return a.localeCompare(b); });
+}
+function fillCompanyUI(){
+  var list = allCompanies(), hasNone = products.some(function(p){ return !p.company; });
+  $('coList').innerHTML = list.map(function(c){ return '<option value="' + esc(c) + '">'; }).join('');
+  function fill(id, withNone){
+    var el = $(id), cur = el.value;
+    var h = '<option value="">All companies / vendors</option>' + list.map(function(c){ return '<option value="' + esc(c) + '">' + esc(c) + '</option>'; }).join('');
+    if (withNone && hasNone) h += '<option value="' + NONE + '">' + NONE + '</option>';
+    el.innerHTML = h; el.value = cur;
+    if (el.value !== cur) el.value = '';
+  }
+  fill('pFilter', true); fill('stCo', true); fill('puVendor', false);
 }
 
 /* ---------- tabs ---------- */
@@ -328,6 +429,7 @@ function setTab(t){
   if (scanView){
     mode = t;
     $('custWrap').classList.toggle('hide', t !== 'SALE');
+    $('vendWrap').classList.toggle('hide', t !== 'IN');
     $('newBtn').classList.toggle('hide', t !== 'IN');
     renderCart();
   }
@@ -349,19 +451,19 @@ function toggleScan(){ if (mainOn) stopMain(); else startMain(); }
 function startMain(){
   unlockAudio();
   if (mainBusy) return;
-  if (!window.Html5Qrcode){ fail('Scanner load nahi hua. Page dobara kholein.'); return; }
+  if (!window.Html5Qrcode){ fail('Scanner did not load. Reload the app.'); return; }
   if (dlgOn) stopDlg();
   mainBusy = true;
   mkScanner('reader', onScan).then(function(s){
-    mainScn = s; mainOn = true; mainBusy = false; $('scanBtn').textContent = 'Camera band karein';
+    mainScn = s; mainOn = true; mainBusy = false; $('scanBtn').textContent = 'Stop camera';
   }).catch(function(){
-    mainBusy = false; fail('Camera nahi khula. Permission allow karein ya barcode khud likhein.');
+    mainBusy = false; fail('Camera could not start. Allow camera permission or type the barcode.');
   });
 }
 function stopMain(){
   if (!mainScn) return;
   var s = mainScn; mainScn = null; mainOn = false;
-  $('scanBtn').textContent = 'Camera se scan karein';
+  $('scanBtn').textContent = 'Scan with camera';
   s.stop().then(function(){ s.clear(); }).catch(function(){});
 }
 function onScan(text){
@@ -376,23 +478,25 @@ function handleCode(code){
   var p = pmap[code];
   if (p){ addToCart(p); return; }
   if (mode === 'IN'){ openNew(code, true); return; }
-  beep('err'); toast('Product nahi mila: ' + code, 'err');
+  beep('err'); toast('Product not found: ' + code, 'err');
 }
 
 /* ---------- search / manual ---------- */
 function matches(q){
   q = q.toLowerCase();
-  return products.filter(function(p){ return p.barcode.toLowerCase().indexOf(q) > -1 || p.name.toLowerCase().indexOf(q) > -1; });
+  return products.filter(function(p){
+    return p.barcode.toLowerCase().indexOf(q) > -1 || p.name.toLowerCase().indexOf(q) > -1 || (p.company || '').toLowerCase().indexOf(q) > -1;
+  });
 }
 function suggest(){
   var q = $('manual').value.trim(), s = $('sugg');
   if (!q){ s.className = 'sugg hide'; return; }
   var m = matches(q).slice(0, 6);
   s.className = 'sugg';
-  if (!m.length){ s.innerHTML = '<div>Koi product nahi mila</div>'; return; }
+  if (!m.length){ s.innerHTML = '<div>No product found</div>'; return; }
   s.innerHTML = m.map(function(p){
     return '<div data-c="' + esc(p.barcode) + '" onclick="pick(this.dataset.c)">' + esc(p.name) +
-      '<small>' + esc(p.barcode) + ' | Stock ' + p.stock + ' | Rs. ' + money(p.sale) + '</small></div>';
+      '<small>' + esc(p.company || NONE) + ' | ' + esc(p.barcode) + ' | Stock ' + p.stock + ' | Rs. ' + money(p.sale) + '</small></div>';
   }).join('');
 }
 function pick(code){ $('manual').value = ''; $('sugg').className = 'sugg hide'; handleCode(code); }
@@ -410,20 +514,20 @@ function addToCart(p){
   var c = carts[mode], it = null;
   c.forEach(function(x){ if (x.barcode === p.barcode) it = x; });
   var next = (it ? it.qty : 0) + 1;
-  if (mode === 'SALE' && next > p.stock){ beep('err'); toast(p.name + ': stock khatam / kam (' + p.stock + ')', 'err'); return; }
+  if (mode === 'SALE' && next > p.stock){ beep('err'); toast(p.name + ': not enough stock (' + p.stock + ')', 'err'); return; }
   if (it) it.qty = next; else c.push({barcode: p.barcode, name: p.name, price: unitPrice(p), qty: 1});
   beep('add'); renderCart();
 }
 function chg(i, d){
   var it = carts[mode][i], p = pmap[it.barcode], q = it.qty + d;
   if (q < 1) return;
-  if (mode === 'SALE' && p && q > p.stock){ beep('err'); toast('Stock kam hai (' + p.stock + ')', 'err'); return; }
+  if (mode === 'SALE' && p && q > p.stock){ beep('err'); toast('Not enough stock (' + p.stock + ')', 'err'); return; }
   it.qty = q; if (d > 0) beep('add'); renderCart();
 }
 function setQty(i, v){
   var it = carts[mode][i], p = pmap[it.barcode], q = Math.floor(Number(v));
   if (!(q > 0)) q = 1;
-  if (mode === 'SALE' && p && q > p.stock){ beep('err'); toast('Stock kam hai (' + p.stock + ')', 'err'); q = Math.max(1, p.stock); }
+  if (mode === 'SALE' && p && q > p.stock){ beep('err'); toast('Not enough stock (' + p.stock + ')', 'err'); q = Math.max(1, p.stock); }
   it.qty = q; renderCart();
 }
 function setPrice(i, v){ var n = Number(v); if (n >= 0) carts[mode][i].price = n; renderCart(); }
@@ -432,8 +536,9 @@ function renderCart(){
   var c = carts[mode], h = '', total = 0, units = 0;
   c.forEach(function(it, i){
     total += it.price * it.qty; units += it.qty;
-    var p = pmap[it.barcode] || {stock: 0};
-    h += '<div class="item"><div class="itop"><div class="iname">' + esc(it.name) + '<small>Stock: ' + p.stock + '</small></div>' +
+    var p = pmap[it.barcode] || {stock: 0, company: ''};
+    h += '<div class="item"><div class="itop"><div class="iname">' + esc(it.name) +
+      '<small>' + esc(p.company || NONE) + ' | Stock: ' + p.stock + '</small></div>' +
       '<button class="x" onclick="del(' + i + ')">&times;</button></div>' +
       '<div class="ctrl"><div class="qty"><button onclick="chg(' + i + ',-1)">&minus;</button>' +
       '<input type="number" inputmode="numeric" value="' + it.qty + '" onchange="setQty(' + i + ',this.value)">' +
@@ -442,7 +547,7 @@ function renderCart(){
       '<input class="price" type="number" inputmode="decimal" value="' + it.price + '" onchange="setPrice(' + i + ',this.value)"></label>' +
       '<div class="line">Rs. ' + money(it.price * it.qty) + '</div></div></div>';
   });
-  $('cart').innerHTML = h || '<p class="empty">Barcode scan karein ya naam likh kar product chunein.</p>';
+  $('cart').innerHTML = h || '<p class="empty">Scan a barcode or search a product to add it.</p>';
   $('tot').textContent = mode === 'SALE' ? 'Total: Rs. ' + money(total) : units + ' units | Rs. ' + money(total);
   $('saveBtn').textContent = mode === 'SALE' ? 'Save Bill' : 'Save Stock In';
 }
@@ -450,22 +555,22 @@ function renderCart(){
 function save(){
   if (saving) return;
   var c = carts[mode];
-  if (!c.length){ beep('err'); toast('Cart khali hai', 'err'); return; }
-  saving = true; $('saveBtn').disabled = true; $('saveBtn').textContent = 'Save ho raha hai...';
+  if (!c.length){ beep('err'); toast('The cart is empty', 'err'); return; }
+  saving = true; $('saveBtn').disabled = true; $('saveBtn').textContent = 'Saving...';
   var wasSale = mode === 'SALE', key = wasSale ? 'SALE' : 'IN';
-  api('saveTransaction', {type: key, customer: $('cust').value, items: c})
+  api('saveTransaction', {type: key, customer: $('cust').value, vendor: $('vendor').value, items: c})
     .then(function(r){
       saving = false; $('saveBtn').disabled = false;
-      carts[key] = []; $('cust').value = '';
+      carts[key] = []; $('cust').value = ''; $('vendor').value = '';
       loadProducts(); renderCart();
       beep('add');
       var l = '';
       if (r.pdf){
-        l = '<a class="btn" href="' + r.pdf.url + '" target="_blank" rel="noopener">PDF kholain</a>' +
-            '<a class="btn alt" href="' + r.pdf.downloadUrl + '" target="_blank" rel="noopener">PDF download</a>';
+        l = '<a class="btn" href="' + r.pdf.url + '" target="_blank" rel="noopener">Open PDF</a>' +
+            '<a class="btn alt" href="' + r.pdf.downloadUrl + '" target="_blank" rel="noopener">Download PDF</a>';
       }
-      showDone(wasSale ? 'Bill save ho gaya' : 'Stock In save ho gaya',
-        r.billNo + (r.pdf ? '' : ' | Stock update ho gaya lekin PDF nahi bani: ' + (r.pdfError || '')), l);
+      showDone(wasSale ? 'Bill saved' : 'Stock In saved',
+        r.billNo + (r.pdf ? '' : ' | Stock was updated but the PDF could not be created: ' + (r.pdfError || '')), l);
     })
     .catch(function(e){ saving = false; $('saveBtn').disabled = false; renderCart(); fail(e); if (e.auth) openSettings(); });
 }
@@ -473,24 +578,33 @@ function showDone(title, msg, links){
   $('dTitle').textContent = title; $('dMsg').textContent = msg; $('dLinks').innerHTML = links || '';
   $('ovDone').style.display = 'flex';
 }
+function pdfLinks(f){
+  return '<a class="btn" href="' + f.url + '" target="_blank" rel="noopener">Open PDF</a>' +
+         '<a class="btn alt" href="' + f.downloadUrl + '" target="_blank" rel="noopener">Download PDF</a>';
+}
 
 /* ---------- products tab ---------- */
 function renderProducts(){
-  var q = ($('psearch').value || '').trim(), list = q ? matches(q) : products, units = 0;
-  products.forEach(function(p){ units += p.stock; });
-  $('pinfo').textContent = products.length + ' products | ' + units + ' units stock mein';
+  var q = ($('psearch').value || '').trim(), f = $('pFilter').value;
+  var list = q ? matches(q) : products;
+  if (f) list = list.filter(function(p){ return (p.company || NONE) === f; });
+  var units = 0;
+  list.forEach(function(p){ units += p.stock; });
+  $('pinfo').textContent = list.length + ' products | ' + units + ' units in stock';
   $('plist').innerHTML = list.slice(0, 300).map(function(p){
     var cls = p.stock <= 0 ? 'zero' : (p.stock <= 3 ? 'low' : 'okk');
-    return '<div class="p"><div>' + esc(p.name) + '<small>' + esc(p.barcode) + '</small><small>Purchase Rs. ' + money(p.purchase) +
-      ' | Sale Rs. ' + money(p.sale) + '</small></div><div class="stk ' + cls + '">' + p.stock + '</div></div>';
-  }).join('') || '<p class="empty">Koi product nahi.</p>';
+    return '<div class="p"><div>' + esc(p.name) + '<span class="tag">' + esc(p.company || NONE) + '</span>' +
+      '<small>' + esc(p.barcode) + '</small><small>Purchase Rs. ' + money(p.purchase) + ' | Sale Rs. ' + money(p.sale) +
+      '</small></div><div class="stk ' + cls + '">' + p.stock + '</div></div>';
+  }).join('') || '<p class="empty">No products found.</p>';
 }
 
-/* ---------- new product (scan ya manual) ---------- */
+/* ---------- new product (scan or manual) ---------- */
 function openNew(code, addAfter){
   pendingAdd = !!addAfter;
   if (mainOn) stopMain();
-  $('nCode').value = code || ''; $('nName').value = ''; $('nBuy').value = ''; $('nSale').value = ''; $('nStock').value = '';
+  $('nCode').value = code || ''; $('nName').value = ''; $('nCompany').value = (mode === 'IN' ? $('vendor').value : '');
+  $('nBuy').value = ''; $('nSale').value = ''; $('nStock').value = '';
   $('nStockWrap').classList.toggle('hide', pendingAdd);
   $('nHint').textContent = '';
   $('ovNew').style.display = 'flex';
@@ -501,19 +615,19 @@ function profitHint(){
   if ($('nBuy').value === '' || $('nSale').value === ''){ h.textContent = ''; h.style.color = ''; return; }
   var d = s - b;
   h.textContent = 'Profit per piece: Rs. ' + money(d) + (b > 0 ? ' (' + Math.round(d / b * 100) + '%)' : '');
-  h.style.color = d < 0 ? 'var(--red)' : 'var(--green)';
+  h.style.color = d < 0 ? 'var(--bad)' : 'var(--ok)';
 }
 function toggleDlgScan(){ if (dlgOn) stopDlg(); else startDlg(); }
 function startDlg(){
   unlockAudio();
   if (dlgBusy) return;
-  if (!window.Html5Qrcode){ fail('Scanner load nahi hua. Page dobara kholein.'); return; }
+  if (!window.Html5Qrcode){ fail('Scanner did not load. Reload the app.'); return; }
   if (mainOn) stopMain();
   dlgBusy = true; $('reader2').classList.remove('hide');
   mkScanner('reader2', onDlgScan).then(function(s){
-    dlgScn = s; dlgOn = true; dlgBusy = false; $('dScanBtn').textContent = 'Band';
+    dlgScn = s; dlgOn = true; dlgBusy = false; $('dScanBtn').textContent = 'Stop';
   }).catch(function(){
-    dlgBusy = false; $('reader2').classList.add('hide'); fail('Camera nahi khula. Barcode khud likh dein.');
+    dlgBusy = false; $('reader2').classList.add('hide'); fail('Camera could not start. Type the barcode instead.');
   });
 }
 function stopDlg(){
@@ -526,60 +640,77 @@ function onDlgScan(text){
   beep('scan');
   var c = String(text).trim();
   stopDlg();
-  if (pmap[c]){ toast('Yeh barcode pehle se hai: ' + pmap[c].name, 'err'); return; }
+  if (pmap[c]){ toast('This barcode already exists: ' + pmap[c].name, 'err'); return; }
   $('nCode').value = c;
 }
 function saveNew(){
   var d = {
-    barcode: $('nCode').value.trim(), name: $('nName').value.trim(),
+    barcode: $('nCode').value.trim(), name: $('nName').value.trim(), company: $('nCompany').value.trim(),
     purchase: $('nBuy').value, sale: $('nSale').value, stock: pendingAdd ? 0 : $('nStock').value
   };
-  if (!d.barcode || !d.name){ beep('err'); toast('Barcode aur naam likhein', 'err'); return; }
-  if (d.purchase === '' || d.sale === ''){ beep('err'); toast('Purchase aur sale price dono likhein', 'err'); return; }
+  if (!d.barcode || !d.name){ beep('err'); toast('Enter the barcode and product name', 'err'); return; }
+  if (d.purchase === '' || d.sale === ''){ beep('err'); toast('Enter both purchase and sale price', 'err'); return; }
   var b = $('nSave'); b.disabled = true;
   api('addProduct', d)
     .then(function(p){
       b.disabled = false; closeNew();
-      products.push(p); pmap[p.barcode] = p; renderProducts();
-      beep('add'); toast('Product add ho gaya');
+      products.push(p); pmap[p.barcode] = p;
+      if (p.company && companies.indexOf(p.company) < 0) companies.push(p.company);
+      fillCompanyUI(); renderProducts(); renderStockSummary();
+      beep('add'); toast('Product added');
       if (pendingAdd && mode === 'IN') addToCart(p);
     })
     .catch(function(e){ b.disabled = false; fail(e); });
 }
 
 /* ---------- reports ---------- */
+function renderStockSummary(){
+  var f = $('stCo').value, g = {}, tn = 0, tu = 0, tv = 0;
+  products.forEach(function(p){
+    var k = p.company || NONE;
+    if (f && k !== f) return;
+    var o = g[k] = g[k] || {n: 0, u: 0, v: 0};
+    o.n++; o.u += p.stock; o.v += p.stock * p.purchase;
+  });
+  var names = Object.keys(g).sort(function(a, b){ return a === NONE ? 1 : (b === NONE ? -1 : a.localeCompare(b)); });
+  if (!names.length){ $('stSummary').innerHTML = '<p class="empty" style="padding:10px">No products yet.</p>'; return; }
+  var h = names.map(function(k){
+    var o = g[k]; tn += o.n; tu += o.u; tv += o.v;
+    return '<div class="srow"><div><b>' + esc(k) + '</b><small>' + o.n + ' products</small></div>' +
+      '<div class="num"><b>' + o.u + '</b><small>units</small></div>' +
+      '<div class="num"><b>Rs. ' + money(o.v) + '</b><small>at cost</small></div></div>';
+  }).join('');
+  h += '<div class="srow total"><div>Total<small>' + tn + ' products</small></div><div class="num">' + tu + '</div><div class="num">Rs. ' + money(tv) + '</div></div>';
+  $('stSummary').innerHTML = h;
+}
 function stockReport(){
-  var b = $('repBtn'); b.disabled = true; b.textContent = 'Report ban rahi hai...';
-  api('getStockReport')
+  var b = $('repBtn'); b.disabled = true; b.textContent = 'Creating report...';
+  api('getStockReport', {company: $('stCo').value === NONE ? '' : $('stCo').value})
     .then(function(f){
       b.disabled = false; b.textContent = 'Stock Report PDF'; beep('add');
-      showDone('Stock report tayyar', f.name,
-        '<a class="btn" href="' + f.url + '" target="_blank" rel="noopener">PDF kholain</a><a class="btn alt" href="' + f.downloadUrl + '" target="_blank" rel="noopener">PDF download</a>');
+      showDone('Stock report ready', f.name, pdfLinks(f));
     })
     .catch(function(e){ b.disabled = false; b.textContent = 'Stock Report PDF'; fail(e); });
 }
 function pad(n){ return (n < 10 ? '0' : '') + n; }
 function ymd(d){ return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
-function quick(k){
+function quick(pre, k){
   var t = new Date(), f = new Date(), e = new Date();
   if (k === 'yest'){ f.setDate(f.getDate() - 1); e = new Date(f); }
   else if (k === 'week'){ f.setDate(f.getDate() - 6); }
   else if (k === 'month'){ f = new Date(t.getFullYear(), t.getMonth(), 1); }
-  $('rFrom').value = ymd(f); $('rTo').value = ymd(e);
+  $(pre + 'From').value = ymd(f); $(pre + 'To').value = ymd(e);
 }
 function salesReport(pdf){
-  var from = $('rFrom').value, to = $('rTo').value;
-  if (!from || !to){ beep('err'); toast('From aur To date chunein', 'err'); return; }
+  var from = $('saleFrom').value, to = $('saleTo').value;
+  if (!from || !to){ beep('err'); toast('Select the From and To dates', 'err'); return; }
   var b = pdf ? $('spdfBtn') : $('sumBtn'), old = b.textContent;
-  $('sumBtn').disabled = true; $('spdfBtn').disabled = true; b.textContent = 'Ruk jayein...';
+  $('sumBtn').disabled = true; $('spdfBtn').disabled = true; b.textContent = 'Please wait...';
   function done(){ $('sumBtn').disabled = false; $('spdfBtn').disabled = false; b.textContent = old; }
   api('getSalesReport', {from: from, to: to, makePdf: !!pdf})
     .then(function(r){
       done(); showSummary(r.summary); beep('add');
-      if (pdf && r.pdf){
-        showDone('Sale report tayyar', r.pdf.name,
-          '<a class="btn" href="' + r.pdf.url + '" target="_blank" rel="noopener">PDF kholain</a><a class="btn alt" href="' + r.pdf.downloadUrl + '" target="_blank" rel="noopener">PDF download</a>');
-      }
+      if (pdf && r.pdf) showDone('Sale report ready', r.pdf.name, pdfLinks(r.pdf));
     })
     .catch(function(e){ done(); fail(e); });
 }
@@ -587,15 +718,46 @@ function showSummary(s){
   var box = $('sumBox');
   box.classList.remove('hide');
   box.innerHTML =
-    '<div class="stat"><small>Total Sale</small><b>Rs. ' + money(s.sales) + '</b></div>' +
-    '<div class="stat"><small>Total Cost</small><b>Rs. ' + money(s.cost) + '</b></div>' +
+    '<div class="stat"><small>Total sale</small><b>Rs. ' + money(s.sales) + '</b></div>' +
+    '<div class="stat"><small>Total cost</small><b>Rs. ' + money(s.cost) + '</b></div>' +
     '<div class="stat big"><small>Profit</small><b class="' + (s.profit < 0 ? 'neg' : '') + '">Rs. ' + money(s.profit) + '</b></div>' +
     '<div class="stat"><small>Bills | Units</small><b>' + s.bills + ' | ' + s.units + '</b></div>';
 }
+function purchaseReport(pdf){
+  var from = $('purFrom').value, to = $('purTo').value;
+  if (!from || !to){ beep('err'); toast('Select the From and To dates', 'err'); return; }
+  var b = pdf ? $('puPdfBtn') : $('puSumBtn'), old = b.textContent;
+  $('puSumBtn').disabled = true; $('puPdfBtn').disabled = true; b.textContent = 'Please wait...';
+  function done(){ $('puSumBtn').disabled = false; $('puPdfBtn').disabled = false; b.textContent = old; }
+  api('getPurchaseReport', {from: from, to: to, vendor: $('puVendor').value, makePdf: !!pdf})
+    .then(function(r){
+      done(); showPurchase(r.summary); beep('add');
+      if (pdf && r.pdf) showDone('Purchase report ready', r.pdf.name, pdfLinks(r.pdf));
+    })
+    .catch(function(e){ done(); fail(e); });
+}
+function showPurchase(s){
+  var box = $('puBox');
+  box.classList.remove('hide');
+  var h = '<div class="grid">' +
+    '<div class="stat big"><small>Total purchase</small><b>Rs. ' + money(s.amount) + '</b></div>' +
+    '<div class="stat"><small>Receipts | Units</small><b>' + s.receipts + ' | ' + s.units + '</b></div></div>';
+  if (!s.byVendor.length){
+    h += '<p class="empty" style="padding:12px">No stock was received in this period.</p>';
+  } else {
+    h += '<div style="margin-top:8px">' + s.byVendor.map(function(g){
+      return '<div class="srow"><div><b>' + esc(g.vendor) + '</b><small>' + g.receipts + ' receipts</small></div>' +
+        '<div class="num"><b>' + g.units + '</b><small>units</small></div>' +
+        '<div class="num"><b>Rs. ' + money(g.amount) + '</b></div></div>';
+    }).join('') + '</div>';
+  }
+  box.innerHTML = h;
+}
 
 /* ---------- start ---------- */
-quick('today');
+quick('sale', 'today'); quick('pur', 'month');
 renderCart();
+try{ var c0 = JSON.parse(store('cache') || 'null'); if (c0) setData(c0); }catch(e){}
 if (hasConfig()) loadProducts(); else openSettings();
 </script>
 </body>
