@@ -47,7 +47,7 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 input[type=text],input[type=password],input[type=url],input[type=number],input[type=search],input[type=date],select{width:100%;padding:12px;border:1px solid var(--blush2);border-radius:12px;background:#fff;font:inherit;color:var(--ink)}
 input:focus,select:focus{outline:2px solid var(--gold2);border-color:var(--gold)}
 label.l{display:block;font-size:12px;color:var(--mut);margin:8px 0 4px;font-weight:600}
-#reader,#reader2{width:100%;margin:8px 0;border-radius:12px;overflow:hidden}
+#reader,#reader2,#reader3{width:100%;margin:8px 0;border-radius:12px;overflow:hidden}
 .sugg{background:#fff;border:1px solid var(--blush2);border-radius:12px;margin-top:4px;box-shadow:var(--sh)}
 .sugg div{padding:10px 12px;border-bottom:1px solid var(--line)}
 .sugg div:last-child{border-bottom:0}
@@ -100,6 +100,14 @@ nav button.on::before{content:"";position:absolute;top:0;left:28%;right:28%;heig
 .box a.btn{display:block;text-align:center;text-decoration:none;margin-top:8px}
 .hint{font-size:13px;color:var(--mut);margin-top:6px;min-height:18px;line-height:1.45}
 .diag{background:var(--blush);border-radius:12px;padding:10px 12px;font-size:13px;margin-top:10px;line-height:1.6}
+.rline{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}
+.rline .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;word-break:break-all}
+.pill{border-radius:20px;padding:2px 10px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.pill.saved{background:#e3f4ea;color:var(--ok)}
+.pill.saving{background:var(--blush);color:var(--rose2)}
+.pill.failed{background:#fde7e4;color:var(--bad)}
+.pill.dup,.pill.exists{background:#fff3d6;color:var(--warn)}
+.tag.warn{background:#fff3d6;color:var(--warn)}
 .hide{display:none!important}
 </style>
 </head>
@@ -138,6 +146,7 @@ nav button.on::before{content:"";position:absolute;top:0;left:28%;right:28%;heig
       <button class="btn" onclick="openNew('', false)">+ New product</button>
       <button class="btn alt" onclick="loadProducts(true)">Refresh</button>
     </div>
+    <button class="btn gold" onclick="openRapid()" style="width:100%;margin-top:8px">Rapid Scan (add many barcodes fast)</button>
     <input type="search" id="psearch" placeholder="Search by name or barcode" oninput="renderProducts()" style="margin-top:8px">
     <select id="pFilter" onchange="renderProducts()" style="margin-top:8px"></select>
     <div class="info" id="pinfo"></div>
@@ -257,6 +266,24 @@ nav button.on::before{content:"";position:absolute;top:0;left:28%;right:28%;heig
   </div>
 </div>
 
+<!-- Rapid scan -->
+<div class="ov" id="ovRapid">
+  <div class="box">
+    <h3>Rapid Scan</h3>
+    <div class="hint" style="margin-top:0">Scan barcodes one after another. Each new barcode is saved to the Products sheet right away. Add the name, prices and company later on the laptop.</div>
+    <label class="l">Company / Vendor for these products (optional)</label>
+    <input type="text" id="rCo" list="coList" placeholder="Choose or type">
+    <div id="reader3"></div>
+    <div class="row">
+      <button class="btn soft" id="rCamBtn" onclick="toggleRapid()">Pause camera</button>
+      <button class="btn alt hide" id="rRetry" onclick="rapidRetry()">Retry saving</button>
+    </div>
+    <div class="grid" id="rStats"></div>
+    <div id="rList" style="margin-top:6px"></div>
+    <button class="btn" style="width:100%;margin-top:12px" onclick="closeRapid()">Done</button>
+  </div>
+</div>
+
 <!-- Done -->
 <div class="ov" id="ovDone">
   <div class="box">
@@ -273,6 +300,8 @@ var mainScn = null, mainOn = false, mainBusy = false;
 var dlgScn = null, dlgOn = false, dlgBusy = false;
 var last = {code: '', t: 0}, saving = false, pendingAdd = false, actx = null, deferredPrompt = null;
 var NONE = '(No company)';
+function dispName(p){ return p.name || ('Unnamed ' + p.barcode); }
+function needsDetails(p){ return !p.name || !(Number(p.sale) > 0); }
 
 function $(id){ return document.getElementById(id); }
 function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
@@ -365,6 +394,7 @@ function beep(kind){
   if (kind === 'scan'){ tone(1500, 0.12, 'square', 0, 0.2); if (navigator.vibrate) navigator.vibrate(30); }
   else if (kind === 'add'){ tone(880, 0.09, 'sine', 0, 0.3); tone(1320, 0.14, 'sine', 0.1, 0.3); }
   else if (kind === 'err'){ tone(200, 0.3, 'sawtooth', 0, 0.25); if (navigator.vibrate) navigator.vibrate([60, 40, 60]); }
+  else if (kind === 'dup'){ tone(330, 0.1, 'square', 0, 0.22); tone(330, 0.1, 'square', 0.16, 0.22); if (navigator.vibrate) navigator.vibrate([40, 40, 40]); }
 }
 
 /* ---------- install ---------- */
@@ -411,6 +441,7 @@ function fillCompanyUI(){
     var el = $(id), cur = el.value;
     var h = '<option value="">All companies / vendors</option>' + list.map(function(c){ return '<option value="' + esc(c) + '">' + esc(c) + '</option>'; }).join('');
     if (withNone && hasNone) h += '<option value="' + NONE + '">' + NONE + '</option>';
+    if (id === 'pFilter') h += '<option value="__need__">Needs details (no name / sale price)</option>';
     el.innerHTML = h; el.value = cur;
     if (el.value !== cur) el.value = '';
   }
@@ -495,7 +526,7 @@ function suggest(){
   s.className = 'sugg';
   if (!m.length){ s.innerHTML = '<div>No product found</div>'; return; }
   s.innerHTML = m.map(function(p){
-    return '<div data-c="' + esc(p.barcode) + '" onclick="pick(this.dataset.c)">' + esc(p.name) +
+    return '<div data-c="' + esc(p.barcode) + '" onclick="pick(this.dataset.c)">' + esc(dispName(p)) +
       '<small>' + esc(p.company || NONE) + ' | ' + esc(p.barcode) + ' | Stock ' + p.stock + ' | Rs. ' + money(p.sale) + '</small></div>';
   }).join('');
 }
@@ -514,8 +545,8 @@ function addToCart(p){
   var c = carts[mode], it = null;
   c.forEach(function(x){ if (x.barcode === p.barcode) it = x; });
   var next = (it ? it.qty : 0) + 1;
-  if (mode === 'SALE' && next > p.stock){ beep('err'); toast(p.name + ': not enough stock (' + p.stock + ')', 'err'); return; }
-  if (it) it.qty = next; else c.push({barcode: p.barcode, name: p.name, price: unitPrice(p), qty: 1});
+  if (mode === 'SALE' && next > p.stock){ beep('err'); toast(dispName(p) + ': not enough stock (' + p.stock + ')', 'err'); return; }
+  if (it) it.qty = next; else c.push({barcode: p.barcode, name: dispName(p), price: unitPrice(p), qty: 1});
   beep('add'); renderCart();
 }
 function chg(i, d){
@@ -587,13 +618,14 @@ function pdfLinks(f){
 function renderProducts(){
   var q = ($('psearch').value || '').trim(), f = $('pFilter').value;
   var list = q ? matches(q) : products;
-  if (f) list = list.filter(function(p){ return (p.company || NONE) === f; });
+  if (f === '__need__') list = list.filter(needsDetails);
+  else if (f) list = list.filter(function(p){ return (p.company || NONE) === f; });
   var units = 0;
   list.forEach(function(p){ units += p.stock; });
   $('pinfo').textContent = list.length + ' products | ' + units + ' units in stock';
   $('plist').innerHTML = list.slice(0, 300).map(function(p){
     var cls = p.stock <= 0 ? 'zero' : (p.stock <= 3 ? 'low' : 'okk');
-    return '<div class="p"><div>' + esc(p.name) + '<span class="tag">' + esc(p.company || NONE) + '</span>' +
+    return '<div class="p"><div>' + esc(dispName(p)) + (needsDetails(p) ? '<span class="tag warn">Details needed</span>' : '') + '<span class="tag">' + esc(p.company || NONE) + '</span>' +
       '<small>' + esc(p.barcode) + '</small><small>Purchase Rs. ' + money(p.purchase) + ' | Sale Rs. ' + money(p.sale) +
       '</small></div><div class="stk ' + cls + '">' + p.stock + '</div></div>';
   }).join('') || '<p class="empty">No products found.</p>';
@@ -752,6 +784,109 @@ function showPurchase(s){
     }).join('') + '</div>';
   }
   box.innerHTML = h;
+}
+
+/* ---------- rapid scan (add many barcodes fast) ---------- */
+var rq = {items: [], seen: {}, pending: [], sending: false, error: false, timer: null, saved: 0};
+var rapidScn = null, rapidOn = false, rapidBusy = false, rlast = {code: '', t: 0};
+
+function openRapid(){
+  unlockAudio();
+  if (mainOn) stopMain();
+  if (dlgOn) stopDlg();
+  rq = {items: [], seen: {}, pending: [], sending: false, error: false, timer: null, saved: 0};
+  $('rCo').value = '';
+  renderRapid();
+  $('ovRapid').style.display = 'flex';
+  startRapid();
+}
+function startRapid(){
+  if (rapidBusy || rapidOn) return;
+  if (!window.Html5Qrcode){ fail('Scanner did not load. Reload the app.'); return; }
+  rapidBusy = true;
+  mkScanner('reader3', onRapidScan).then(function(s){
+    rapidScn = s; rapidOn = true; rapidBusy = false; $('rCamBtn').textContent = 'Pause camera';
+  }).catch(function(){
+    rapidBusy = false; $('rCamBtn').textContent = 'Start camera';
+    fail('Camera could not start. Allow camera permission and try again.');
+  });
+}
+function stopRapid(){
+  if (!rapidScn) return;
+  var s = rapidScn; rapidScn = null; rapidOn = false;
+  $('rCamBtn').textContent = 'Start camera';
+  s.stop().then(function(){ s.clear(); }).catch(function(){});
+}
+function toggleRapid(){ if (rapidOn) stopRapid(); else startRapid(); }
+function onRapidScan(text){
+  var code = String(text).trim(), now = Date.now();
+  if (!code) return;
+  if (code === rlast.code && now - rlast.t < 1800){ rlast.t = now; return; }
+  rlast = {code: code, t: now};
+  if (pmap[code] || rq.seen[code]){
+    beep('dup');
+    rq.items.unshift({code: code, state: 'dup'});
+    renderRapid();
+    return;
+  }
+  rq.seen[code] = 1;
+  beep('scan');
+  var it = {code: code, state: 'saving', company: $('rCo').value.trim()};
+  rq.items.unshift(it); rq.pending.push(it);
+  renderRapid();
+  clearTimeout(rq.timer); rq.timer = setTimeout(rapidFlush, 500);
+}
+function rapidFlush(){
+  if (rq.sending || rq.error || !rq.pending.length) return;
+  var batch = rq.pending.splice(0, rq.pending.length);
+  rq.sending = true;
+  api('addBarcodes', {items: batch.map(function(b){ return {barcode: b.code, company: b.company}; })})
+    .then(function(r){
+      rq.sending = false;
+      var added = {};
+      (r.added || []).forEach(function(c){ added[c] = 1; });
+      batch.forEach(function(b){
+        if (added[b.code]){
+          b.state = 'saved'; rq.saved++;
+          var p = {barcode: b.code, name: '', company: b.company || '', purchase: 0, sale: 0, stock: 0};
+          products.push(p); pmap[b.code] = p;
+        } else {
+          b.state = 'exists';
+        }
+      });
+      renderRapid(); renderProducts();
+      if (rq.pending.length) rapidFlush();
+    })
+    .catch(function(e){
+      rq.sending = false; rq.error = true;
+      batch.forEach(function(b){ b.state = 'failed'; });
+      rq.pending = batch.concat(rq.pending);
+      renderRapid(); fail(e);
+    });
+}
+function rapidRetry(){
+  rq.error = false;
+  rq.pending.forEach(function(b){ b.state = 'saving'; });
+  renderRapid(); rapidFlush();
+}
+function renderRapid(){
+  var dups = 0;
+  rq.items.forEach(function(i){ if (i.state === 'dup' || i.state === 'exists') dups++; });
+  $('rStats').innerHTML =
+    '<div class="stat big"><small>Saved to sheet</small><b>' + rq.saved + '</b></div>' +
+    '<div class="stat"><small>Duplicates skipped</small><b>' + dups + '</b></div>';
+  var label = {saving: 'Saving...', saved: 'Saved', failed: 'Failed', dup: 'Already added', exists: 'Already in sheet'};
+  $('rList').innerHTML = rq.items.slice(0, 100).map(function(i){
+    return '<div class="rline"><span class="mono">' + esc(i.code) + '</span><span class="pill ' + i.state + '">' + label[i.state] + '</span></div>';
+  }).join('') || '<p class="empty" style="padding:14px">Point the camera at a barcode.</p>';
+  $('rRetry').classList.toggle('hide', !rq.error);
+}
+function closeRapid(){
+  var unsaved = rq.items.filter(function(i){ return i.state === 'saving' || i.state === 'failed'; }).length;
+  if (unsaved && !confirm(unsaved + ' barcode(s) are not saved yet. Close anyway?')) return;
+  stopRapid();
+  $('ovRapid').style.display = 'none';
+  if (rq.saved){ loadProducts(); toast(rq.saved + ' barcodes added. Fill in the details in the Google Sheet.'); }
 }
 
 /* ---------- start ---------- */

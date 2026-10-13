@@ -1,6 +1,6 @@
 // Service worker: keeps the app files on the phone so the app opens offline.
 // To push an update to phones, change the version number below (v2 -> v3 ...).
-var CACHE = 'wcs-v2';
+var CACHE = 'wcs-v3';
 var FILES = [
   './',
   'index.html',
